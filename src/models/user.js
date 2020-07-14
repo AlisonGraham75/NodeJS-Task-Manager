@@ -64,6 +64,17 @@ userSchema.methods.generateAuthToken = async function() {
     return authToken
 }
 
+//Hide stuff that the user doesnt need to see in the response
+userSchema.methods.toJSON = function() {
+    const user = this 
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
 //Static methods are accessible on the model
 userSchema.statics.findByCredentials = async (email, password) => {
 
