@@ -31,6 +31,32 @@ router.post('/users/login', async(req,res)=> {
     }
 })
 
+router.post('/user/logout', authentication, async (req, res) => {
+    try {
+  
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        console.log(e)
+        res.status(500).send()
+    }
+})
+
+router.post('/user/logoutAll', authentication, async (req, res) => {
+    try {
+  
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        console.log(e)
+        res.status(500).send()
+    }
+})
+
 //READ
 //Run 'authentication' middleware method first
 router.get('/users/me', authentication, async (req, res) =>  {

@@ -11,7 +11,9 @@ const authenticate = async (req, res, next) => {
             throw new Error()
         }
 
-       //add user on to the request to use
+        //make token available to other route handlers.
+        req.token = token
+        //add user on to the request to use
         req.user = user
         next()
     } catch (e) {
