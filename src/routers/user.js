@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require('../models/user')
+const authentication = require('../middleware/authentication')
 const router = new express.Router()
 
 /*
@@ -31,13 +32,10 @@ router.post('/users/login', async(req,res)=> {
 })
 
 //READ
-router.get('/users', async (req, res) =>  {
-    try{
-        const users = await User.find({})
-        res.send(users)
-    } catch (e) {
-        res.status(500).send()
-    }
+//Run 'authentication' middleware method first
+router.get('/users/me', authentication, async (req, res) =>  {
+    //user was put in the req in authentication method after it was authenticated.
+    res.send(req.user)
 })
 
 //READ 
