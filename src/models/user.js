@@ -54,6 +54,13 @@ const userSchema = new mongoose.Schema({
 
 })
 
+//Not stored in the database. just to allow mongoose acccess to the users' tasks.
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
 //method methods are accessible on the instances
 userSchema.methods.generateAuthToken = async function() {
     const user = this
