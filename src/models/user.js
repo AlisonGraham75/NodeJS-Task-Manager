@@ -52,7 +52,8 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
-
+}, {
+    timestamps: true
 })
 
 //Not stored in the database. just to allow mongoose access to the users' tasks.
