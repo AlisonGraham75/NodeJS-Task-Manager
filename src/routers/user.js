@@ -145,4 +145,17 @@ router.post('/users/me/avatar', authentication, upload.single('avatar'), async (
     res.status(400).send({ error:error.message}) /* without this, it displays html with errors in the response body */
 })
 
+router.get('/users/:id/avatar', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (!user || !user.avatar) {
+            throw new Error()
+        }
+        res.set('Content-Type','image/jpg')
+        res.send(user.avatar)
+    } catch (e) {
+        res.setStatus(404).send()
+    }
+})
+
 module.exports = router
