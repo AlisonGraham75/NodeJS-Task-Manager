@@ -114,6 +114,16 @@ router.delete('/users/me', authentication, async (req, res) => {
     }
 })
 
+router.delete('/users/me/avatar',authentication, async (req, res) => {
+    try {
+        req.user.avatar = undefined
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        res.status(500).send
+    }
+})
+
 //UPLOAD
 const upload = multer({
     limits: {
