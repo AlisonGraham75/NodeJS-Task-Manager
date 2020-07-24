@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd --file ./config/dev.env node src/index.js"
+    "dev": "env-cmd --file ./config/dev.env node src/index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "jest": "^26.1.0"
   }
 }
