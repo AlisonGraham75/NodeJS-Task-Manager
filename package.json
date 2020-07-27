@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "env-cmd --file ./config/dev.env node src/index.js",
-    "test": "jest --watch"
+    "test": "env-cmd --file ./config/test.env jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +26,7 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "jest": "^26.1.0"
+    "jest": "^26.1.0",
+    "supertest": "^4.0.2"
   }
 }
