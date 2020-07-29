@@ -97,3 +97,32 @@ test('Should delete account for user', async () => {
     expect(user).toBeNull()
 })
 
+test('Should upload avatar image', async() => {
+    await request(app)
+        .post('/users/me/avatar')
+        .set('Authorization',tokenString)
+        .attach('avatar','tests/fixtures/profile-pic.jpg')
+        .expect(200)
+
+    const user = await User.findById(userOneId)
+    expect(user.avatar).toEqual(expect.any(Buffer))
+})
+
+test('Should update valid user fields', async() => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', tokenString)
+        .send({
+            name: 'Jess'
+        }).expect(200)
+    const user = await User.findById(userOneId)
+    expect(user.name).toEqual('Jess')
+})
+test('Should not update invalid user fields', async() => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', tokenString)
+        .send({
+            location: 'Philadelphia'
+        }).expect(400)
+})
